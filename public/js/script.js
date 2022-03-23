@@ -8,8 +8,11 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+function drawCircle(xPos, yPos) { ctx.beginPath(); ctx.arc(xPos, yPos, 50, 0, 360); ctx.moveTo(0, 0); ctx.closePath(); ctx.fillStyle = 'white'; ctx.fill(); ctx.strokeStyle = "red"; ctx.stroke();}
+
 window.onmousemove = (e) => {
-    coords.textContent = `${e.clientX} x ${e.clientY}`;    
+    coords.textContent = `${e.clientX} x ${e.clientY}`;
+    drawCircle(e.clientX, e.clientY);
 }
 
 window.onresize = (e) => {
