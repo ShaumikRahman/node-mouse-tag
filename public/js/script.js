@@ -7,8 +7,8 @@ const ctx = canvas.getContext("2d");
 
 const size = 20;
 
-const xSpeed = 15;
-const ySpeed = 15;
+const xSpeed = 10;
+const ySpeed = 10;
 
 let currentXSpeed = 0;
 let currentYSpeed = 0;
@@ -38,6 +38,7 @@ function drawCircle(xPos, yPos) {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawCircle(xPos, yPos);
+  drawCircle(mouseX, mouseY);
 
   
 
@@ -64,7 +65,6 @@ window.onmousemove = (e) => {
   coords.textContent = `${e.clientX} x ${e.clientY}`;
   mouseX = e.clientX;
   mouseY = e.clientY;
-  drawCircle(e.clientX, e.clientY);
   //requestAnimationFrame(update);
 };
 
