@@ -22,7 +22,9 @@ let mouseY;
 let xPos = 500;
 let yPos = 500;
 
-
+function endGame() {
+  console.log('game over');
+}
 
 function drawCircle(xPos, yPos) {
   ctx.beginPath();
@@ -53,6 +55,13 @@ function draw() {
 
   currentXSpeed < -xSpeed ? currentXSpeed = -xSpeed : '';
   currentYSpeed < -ySpeed ? currentYSpeed = -ySpeed : '';
+
+  const collisionX = xPos - mouseX;
+  const collisionY = yPos - mouseY;
+
+  const distance = Math.sqrt(collisionX + collisionX * collisionY + collisionY);
+
+  distance < size ? endGame() : '';
 
   console.log(xPos, yPos);
 
