@@ -10,6 +10,8 @@ const size = 20;
 const xSpeed = 10;
 const ySpeed = 10;
 
+let playing = false;
+
 let currentXSpeed = 0;
 let currentYSpeed = 0;
 
@@ -22,8 +24,22 @@ let mouseY;
 let xPos = 500;
 let yPos = 500;
 
+function startGame() {
+  body.classList.add("cursor");
+
+  console.log("started");
+  draw();
+}
+
 function endGame() {
-  console.log('game over');
+  body.classList.remove("cursor");
+
+  for (let i = 0; i < texts.length; i++) {
+    texts[i].classList.remove("hide");
+  }
+
+  console.log(`p: ${mouseX}x${mouseY}`, `e: ${xPos}x${yPos}`);
+  playing = false;
 }
 
 function drawCircle(xPos, yPos) {
@@ -38,40 +54,44 @@ function drawCircle(xPos, yPos) {
 }
 
 function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawCircle(xPos, yPos);
-  drawCircle(mouseX, mouseY);
+  if (playing) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawCircle(xPos, yPos);
+    drawCircle(mouseX, mouseY);
 
-  
+    xPos < mouseX
+      ? (xPos = xPos + Math.min(xSpeed, currentXSpeed))
+      : (xPos = xPos + Math.max(-xSpeed, currentXSpeed));
+    yPos < mouseY
+      ? (yPos = yPos + Math.min(ySpeed, currentYSpeed))
+      : (yPos = yPos + Math.max(-ySpeed, currentYSpeed));
 
-  xPos < mouseX ? xPos = xPos + Math.min(xSpeed, currentXSpeed) : xPos = xPos + Math.max(-xSpeed, currentXSpeed);
-  yPos < mouseY ? yPos = yPos + Math.min(ySpeed, currentYSpeed) : yPos = yPos + Math.max(-ySpeed, currentYSpeed);
+    xPos < mouseX ? currentXSpeed++ : currentXSpeed--;
+    yPos < mouseY ? currentYSpeed++ : currentYSpeed--;
 
-  xPos < mouseX ? currentXSpeed++ : currentXSpeed--;
-  yPos < mouseY ? currentYSpeed++ : currentYSpeed--;
+    currentXSpeed > xSpeed ? (currentXSpeed = xSpeed) : "";
+    currentYSpeed > ySpeed ? (currentYSpeed = ySpeed) : "";
 
-  currentXSpeed > xSpeed ? currentXSpeed = xSpeed : '';
-  currentYSpeed > ySpeed ? currentYSpeed = ySpeed : '';
+    currentXSpeed < -xSpeed ? (currentXSpeed = -xSpeed) : "";
+    currentYSpeed < -ySpeed ? (currentYSpeed = -ySpeed) : "";
 
-  currentXSpeed < -xSpeed ? currentXSpeed = -xSpeed : '';
-  currentYSpeed < -ySpeed ? currentYSpeed = -ySpeed : '';
+    const collisionX = xPos - mouseX;
+    const collisionY = yPos - mouseY;
 
-  const collisionX = xPos - mouseX;
-  const collisionY = yPos - mouseY;
+    const distance = Math.sqrt(
+      collisionX * collisionX + collisionY * collisionY
+    );
 
-  const distance = Math.sqrt(collisionX + collisionX * collisionY + collisionY);
+    distance <= size ? endGame() : "";
 
-  distance < size ? endGame() : '';
+    console.log(currentXSpeed, currentYSpeed);
 
-  console.log(xPos, yPos);
-
-  window.requestAnimationFrame(draw);
+    window.requestAnimationFrame(draw);
+  }
 }
 
-draw();
-
 window.onmousemove = (e) => {
-  coords.textContent = `${e.clientX} x ${e.clientY}`;
+  //coords.textContent = `${e.clientX} x ${e.clientY}`;
   mouseX = e.clientX;
   mouseY = e.clientY;
   //requestAnimationFrame(update);
@@ -87,8 +107,26 @@ window.onresize = (e) => {
 };
 
 window.onclick = (e) => {
-  body.classList.toggle("clickable");
+
+  if (playing) {
+  body.classList.remove("cursor");
+
   for (let i = 0; i < texts.length; i++) {
-    texts[i].classList.toggle("hide");
+    texts[i].classList.remove("hide");
   }
+
+    playing = false;
+    endGame();
+  } else {
+  body.classList.add("cursor");
+
+  for (let i = 0; i < texts.length; i++) {
+    texts[i].classList.add("hide");
+  }
+
+    playing = true;
+    startGame();
+  }
+
+  
 };

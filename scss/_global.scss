@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    cursor: none;
 }
 
 body::-webkit-scrollbar {
@@ -32,6 +31,6 @@ body.dark {
     display: none;
 }
 
-.clickable {
-    cursor: pointer;
+.cursor {
+    cursor: none;
 }
