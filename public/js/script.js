@@ -42,13 +42,19 @@ function endGame() {
   playing = false;
 }
 
-function drawCircle(xPos, yPos) {
+function drawCircle(xPos, yPos, type) {
   ctx.beginPath();
   ctx.arc(xPos, yPos, size, 0, 360);
   ctx.moveTo(0, 0);
   ctx.closePath();
-  ctx.fillStyle = "#0070f0";
+  if (type === 'enemy') {
+    ctx.fillStyle = "#ff5656";
   ctx.fill();
+  } else {
+    ctx.fillStyle = "#0070f0";
+  ctx.fill();
+  }
+  
   // ctx.strokeStyle = "0070ff";
   // ctx.stroke();
 }
@@ -56,7 +62,7 @@ function drawCircle(xPos, yPos) {
 function draw() {
   if (playing) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawCircle(xPos, yPos);
+    drawCircle(xPos, yPos, 'enemy');
     drawCircle(mouseX, mouseY);
 
     const collisionX = xPos - mouseX;
