@@ -98,6 +98,11 @@ function draw() {
   }
 }
 
+window.onresize = (e) => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
 window.onmousemove = (e) => {
   //coords.textContent = `${e.clientX} x ${e.clientY}`;
   mouseX = e.clientX;
