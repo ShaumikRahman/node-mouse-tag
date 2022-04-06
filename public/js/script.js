@@ -25,14 +25,16 @@ let xPos = 500;
 let yPos = 500;
 
 function startGame() {
-  body.classList.add("cursor");
+  body.classList.add('show-cursor');
+  body.classList.remove('hide-cursor');
 
   console.log("started");
   draw();
 }
 
 function endGame() {
-  body.classList.remove("cursor");
+  body.classList.remove("show-cursor");
+  body.classList.add('hide-cursor');
 
   for (let i = 0; i < texts.length; i++) {
     texts[i].classList.remove("hide");
@@ -90,9 +92,7 @@ function draw() {
     currentXSpeed < -xSpeed ? (currentXSpeed = -xSpeed) : "";
     currentYSpeed < -ySpeed ? (currentYSpeed = -ySpeed) : "";
 
-    
-
-    console.log(currentXSpeed, currentYSpeed);
+  
 
     window.requestAnimationFrame(draw);
   }
@@ -107,6 +107,8 @@ window.onmousemove = (e) => {
   //coords.textContent = `${e.clientX} x ${e.clientY}`;
   mouseX = e.clientX;
   mouseY = e.clientY;
+
+  console.log(playing, !!playing);
   //requestAnimationFrame(update);
 };
 
@@ -122,7 +124,7 @@ window.onresize = (e) => {
 window.onclick = (e) => {
 
   if (playing) {
-  body.classList.remove("cursor");
+
 
   for (let i = 0; i < texts.length; i++) {
     texts[i].classList.remove("hide");
@@ -131,7 +133,6 @@ window.onclick = (e) => {
     playing = false;
     endGame();
   } else {
-  body.classList.add("cursor");
 
   for (let i = 0; i < texts.length; i++) {
     texts[i].classList.add("hide");
