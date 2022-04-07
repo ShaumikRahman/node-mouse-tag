@@ -7,8 +7,8 @@ const ctx = canvas.getContext("2d");
 
 const size = 20;
 
-const xSpeed = 10;
-const ySpeed = 10;
+const xSpeed = 8;
+const ySpeed = 8;
 
 let playing = false;
 
@@ -25,16 +25,16 @@ let xPos = 500;
 let yPos = 500;
 
 function startGame() {
-  body.classList.add('show-cursor');
-  body.classList.remove('hide-cursor');
+  body.classList.remove('show-cursor');
+  body.classList.add('hide-cursor');
 
   console.log("started");
   draw();
 }
 
 function endGame() {
-  body.classList.remove("show-cursor");
-  body.classList.add('hide-cursor');
+  body.classList.add("show-cursor");
+  body.classList.remove('hide-cursor');
 
   for (let i = 0; i < texts.length; i++) {
     texts[i].classList.remove("hide");
