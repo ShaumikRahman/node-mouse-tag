@@ -21,8 +21,14 @@ canvas.height = window.innerHeight;
 let mouseX;
 let mouseY;
 
-let xPos = 500;
-let yPos = 500;
+let xPos = randy(1, window.innerWidth);
+let yPos = randy(1,window.innerHeight);
+
+function randy(min, max) {
+min = Math.ceil(min);
+max = Math.floor(max);
+return Math.floor(Math.random() * (max -min + 1)+ min)
+}
 
 function startGame() {
   body.classList.remove('show-cursor');
