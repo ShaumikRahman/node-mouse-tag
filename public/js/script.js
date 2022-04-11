@@ -7,8 +7,8 @@ const ctx = canvas.getContext("2d");
 
 const size = 20;
 
-const xSpeed = 8;
-const ySpeed = 8;
+const xSpeed = 9;
+const ySpeed = 9;
 
 let playing = false;
 
