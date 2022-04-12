@@ -5,10 +5,12 @@ const texts = document.getElementsByClassName("text");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-const size = 20;
+const size = window.innerWidth > 1440 ? '40' :'20';
 
-const xSpeed = 9;
-const ySpeed = 9;
+const xSpeed = window.innerWidth > 1440 ? 18 : 9;
+const ySpeed = window.innerWidth > 1440 ? 18 : 9;
+
+const turn = window.innerWidth > 1440 ? 5 : 1.5;
 
 let playing = false;
 
@@ -89,8 +91,8 @@ function draw() {
       ? (yPos = yPos + Math.min(ySpeed, currentYSpeed))
       : (yPos = yPos + Math.max(-ySpeed, currentYSpeed));
 
-    xPos < mouseX ? currentXSpeed++ : currentXSpeed--;
-    yPos < mouseY ? currentYSpeed++ : currentYSpeed--;
+    xPos < mouseX ? currentXSpeed+=turn : currentXSpeed-=turn;
+    yPos < mouseY ? currentYSpeed+=turn : currentYSpeed-=turn;
 
     currentXSpeed > xSpeed ? (currentXSpeed = xSpeed) : "";
     currentYSpeed > ySpeed ? (currentYSpeed = ySpeed) : "";
