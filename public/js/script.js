@@ -1,5 +1,6 @@
 const coords = document.getElementById("coords");
 const body = document.getElementById("body");
+const play = document.getElementById('play')
 const texts = document.getElementsByClassName("text");
 
 const canvas = document.getElementById("canvas");
@@ -41,6 +42,7 @@ function startGame() {
 }
 
 function endGame() {
+  ctx.globalAlpha = 0.25;
   body.classList.add("show-cursor");
   body.classList.remove('hide-cursor');
 
@@ -72,6 +74,7 @@ function drawCircle(xPos, yPos, type) {
 function draw() {
   if (playing) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.globalAlpha = 1;
     drawCircle(xPos, yPos, 'enemy');
     drawCircle(mouseX, mouseY);
 
@@ -103,6 +106,13 @@ function draw() {
   
 
     window.requestAnimationFrame(draw);
+  } else {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
+    ctx.globalAlpha = 0.35;
+    drawCircle(xPos, yPos, 'enemy');
+    drawCircle(mouseX, mouseY);
   }
 }
 
