@@ -1,6 +1,6 @@
 const coords = document.getElementById("coords");
 const body = document.getElementById("body");
-const play = document.getElementById('play')
+const play = document.getElementById('play');
 const texts = document.getElementsByClassName("text");
 
 const canvas = document.getElementById("canvas");
@@ -37,7 +37,6 @@ function startGame() {
   body.classList.remove('show-cursor');
   body.classList.add('hide-cursor');
 
-  console.log("started");
   draw();
 }
 
@@ -140,6 +139,9 @@ window.onresize = (e) => {
 };
 
 window.onclick = (e) => {
+
+  mouseX = e.clientX;
+  mouseY = e.clientY;
 
   if (playing) {
 
