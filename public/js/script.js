@@ -65,9 +65,6 @@ function drawCircle(xPos, yPos, type) {
     ctx.fillStyle = "#0070f0";
   ctx.fill();
   }
-  
-  // ctx.strokeStyle = "0070ff";
-  // ctx.stroke();
 }
 
 function draw() {
@@ -121,12 +118,10 @@ window.onresize = (e) => {
 }
 
 window.onmousemove = (e) => {
-  //coords.textContent = `${e.clientX} x ${e.clientY}`;
   mouseX = e.clientX;
   mouseY = e.clientY;
 
   console.log(playing, !!playing);
-  //requestAnimationFrame(update);
 };
 
 window.addEventListener("click", (e) => {

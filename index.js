@@ -10,10 +10,6 @@ const io = socketio(server);
 
 app.use(express.static(path.join(__dirname, "public")));
 
-// app.get('/', (req, res) => {
-//     res.send('test');
-// })
-
 server.listen(PORT, () => {
     console.log(`server started on ${PORT}`);
 })
