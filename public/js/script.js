@@ -124,16 +124,10 @@ window.onmousemove = (e) => {
   console.log(playing, !!playing);
 };
 
-window.addEventListener("click", (e) => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  console.log("test");
-});
-
-window.onresize = (e) => {
-  console.log(`${canvas.width} x ${canvas.height}`);
-};
-
 window.onclick = (e) => {
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
 
   mouseX = e.clientX;
   mouseY = e.clientY;
