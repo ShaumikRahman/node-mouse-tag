@@ -1,6 +1,7 @@
 .main {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1rem;
     text-align: center;
 
@@ -12,5 +13,13 @@
     &__online {
         cursor: pointer;
         z-index: 10;
+        transition: transform 150ms ease-in-out;
+        transform: scale(1);
+    }
+
+    &__online:hover {
+        color: #0070f0;
+        transition: transform 150ms ease-in-out;
+        transform: scale(1.5);
     }
 }
