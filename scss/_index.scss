@@ -24,4 +24,8 @@
         transition: 150ms ease-in-out;
         transform: scale(1.5);
     }
+
+    &__join {
+        z-index: 10;
+    }
 }

@@ -124,7 +124,7 @@ window.onmousemove = (e) => {
   console.log(playing, !!playing);
 };
 
-window.onclick = (e) => {
+canvas.onclick = (e) => {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
