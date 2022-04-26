@@ -1,17 +1,19 @@
 const coords = document.getElementById("coords");
 const body = document.getElementById("body");
 const play = document.getElementById('play');
+const online = document.getElementById('online');
+const join = document.getElementById('join');
 const texts = document.getElementsByClassName("text");
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-const size = window.innerWidth > 1440 ? '40' :'20';
+const size = window.innerWidth >= 1440 ? '30' :'20';
 
-const xSpeed = window.innerWidth > 1440 ? 18 : 9;
-const ySpeed = window.innerWidth > 1440 ? 18 : 9;
+const xSpeed = window.innerWidth >= 1440 ? 14 : 9;
+const ySpeed = window.innerWidth >= 1440 ? 14 : 9;
 
-const turn = window.innerWidth > 1440 ? 5 : 1.5;
+const turn = window.innerWidth >= 1440 ? 5 : 1.5;
 
 let playing = false;
 
@@ -110,6 +112,10 @@ function draw() {
     drawCircle(xPos, yPos, 'enemy');
     drawCircle(mouseX, mouseY);
   }
+}
+
+online.onclick = (e) => {
+  join.value ? console.log(join.value) : console.log('no gamer');
 }
 
 window.onresize = (e) => {
