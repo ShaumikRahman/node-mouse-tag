@@ -115,7 +115,7 @@ function draw() {
 }
 
 online.onclick = (e) => {
-  join.value ? console.log(join.value) : console.log('no gamer');
+  join.value ? console.log(join.value) : alert('no code');
 }
 
 window.onresize = (e) => {
