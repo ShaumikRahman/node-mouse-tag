@@ -115,7 +115,7 @@ function draw() {
 }
 
 online.onclick = (e) => {
-  join.value ? console.log(join.value) : alert('no code');
+  join.value ? console.log(join.value) : alert(`match code generated ${Math.floor(Math.random() * 1000000000)}`);
 }
 
 window.onresize = (e) => {
