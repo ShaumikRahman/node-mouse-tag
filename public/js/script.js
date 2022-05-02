@@ -5,6 +5,8 @@ const online = document.getElementById('online');
 const join = document.getElementById('join');
 const texts = document.getElementsByClassName("text");
 
+const socket = io();
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -115,7 +117,7 @@ function draw() {
 }
 
 online.onclick = (e) => {
-  join.value ? console.log(join.value) : alert(`match code generated ${Math.floor(Math.random() * 1000000000)}`);
+  join.value ? socket.emit('test', join.value) : alert(`match code generated ${Math.floor(Math.random() * 1000000000)}`);
 }
 
 window.onresize = (e) => {
