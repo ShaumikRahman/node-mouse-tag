@@ -13,9 +13,16 @@ app.use(express.static(path.join(__dirname, "public")));
 io.on('connection', (socket) => {
     console.log('connected', socket.id);
 
-    socket.on('test', msg => {
-        console.log(`messsge is ${msg}`);
+    socket.on("join", (roomId) => {
+      console.log(`messsge is ${roomId}`);
+
+      socket.join(`${roomId}`);
+    });
+
+    socket.on("coords", (coords) => {
+      console.log(coords);
     })
+
 })
 
 server.listen(PORT, () => {

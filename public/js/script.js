@@ -1,3 +1,5 @@
+const ROOM_ID = Math.floor(Math.random() * 1000000000);
+
 const coords = document.getElementById("coords");
 const body = document.getElementById("body");
 const play = document.getElementById('play');
@@ -117,7 +119,7 @@ function draw() {
 }
 
 online.onclick = (e) => {
-  join.value ? socket.emit('test', join.value) : alert(`match code generated ${Math.floor(Math.random() * 1000000000)}`);
+  join.value ? socket.emit('join', join.value) : alert(`enter match id`);
 }
 
 window.onresize = (e) => {
@@ -129,7 +131,9 @@ window.onmousemove = (e) => {
   mouseX = e.clientX;
   mouseY = e.clientY;
 
-  console.log(playing, !!playing);
+  if (true) {
+    socket.emit('coords', ({mouseX, mouseY}));
+  }
 };
 
 canvas.onclick = (e) => {
