@@ -20,6 +20,7 @@ const ySpeed = window.innerWidth >= 1440 ? 14 : 9;
 const turn = window.innerWidth >= 1440 ? 5 : 1.5;
 
 let playing = false;
+let playingOnline = false;
 
 let currentXSpeed = 0;
 let currentYSpeed = 0;
@@ -89,7 +90,20 @@ function draw() {
 
     distance <= size * 2 ? endGame() : "";
 
-    xPos < mouseX
+    computerOpponentCalc();
+
+    window.requestAnimationFrame(draw);
+  } else {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.globalAlpha = 0.35;
+    drawCircle(xPos, yPos, 'enemy');
+    drawCircle(mouseX, mouseY);
+  }
+}
+
+function computerOpponentCalc() {
+  xPos < mouseX
       ? (xPos = xPos + Math.min(xSpeed, currentXSpeed))
       : (xPos = xPos + Math.max(-xSpeed, currentXSpeed));
     yPos < mouseY
@@ -104,18 +118,6 @@ function draw() {
 
     currentXSpeed < -xSpeed ? (currentXSpeed = -xSpeed) : "";
     currentYSpeed < -ySpeed ? (currentYSpeed = -ySpeed) : "";
-
-  
-
-    window.requestAnimationFrame(draw);
-  } else {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-
-    ctx.globalAlpha = 0.35;
-    drawCircle(xPos, yPos, 'enemy');
-    drawCircle(mouseX, mouseY);
-  }
 }
 
 online.onclick = (e) => {
@@ -131,7 +133,7 @@ window.onmousemove = (e) => {
   mouseX = e.clientX;
   mouseY = e.clientY;
 
-  if (true) {
+  if (playingOnline && playing) {
     socket.emit('coords', ({mouseX, mouseY}));
   }
 };
