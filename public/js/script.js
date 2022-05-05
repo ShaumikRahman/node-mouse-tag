@@ -7,6 +7,8 @@ const online = document.getElementById('online');
 const join = document.getElementById('join');
 const texts = document.getElementsByClassName("text");
 
+join.value = ROOM_ID;
+
 const socket = io();
 
 const canvas = document.getElementById("canvas");
@@ -20,7 +22,8 @@ const ySpeed = window.innerWidth >= 1440 ? 14 : 9;
 const turn = window.innerWidth >= 1440 ? 5 : 1.5;
 
 let playing = false;
-let playingOnline = false;
+let sending = false;
+let hosting = false;
 
 let currentXSpeed = 0;
 let currentYSpeed = 0;
@@ -78,17 +81,11 @@ function draw() {
   if (playing) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.globalAlpha = 1;
-    drawCircle(xPos, yPos, 'enemy');
+    hosting ? drawCircle(xPos, yPos, 'enemy') : drawCircle(xPos, yPos, 'enemy');
     drawCircle(mouseX, mouseY);
 
-    const collisionX = xPos - mouseX;
-    const collisionY = yPos - mouseY;
+    collisionCalc();
 
-    const distance = Math.sqrt(
-      collisionX * collisionX + collisionY * collisionY
-    );
-
-    distance <= size * 2 ? endGame() : "";
 
     computerOpponentCalc();
 
@@ -100,6 +97,18 @@ function draw() {
     drawCircle(xPos, yPos, 'enemy');
     drawCircle(mouseX, mouseY);
   }
+}
+
+function collisionCalc() {
+  const collisionX = xPos - mouseX;
+    const collisionY = yPos - mouseY;
+
+    const distance = Math.sqrt(
+      collisionX * collisionX + collisionY * collisionY
+    );
+
+    distance <= size * 2 ? endGame() : "";
+
 }
 
 function computerOpponentCalc() {
@@ -121,7 +130,16 @@ function computerOpponentCalc() {
 }
 
 online.onclick = (e) => {
-  join.value ? socket.emit('join', join.value) : alert(`enter match id`);
+  join.value && join.value != ROOM_ID ? joinRoom() : alert(`enter enemy ID`);
+}
+
+function joinRoom() {
+  socket.emit('join', join.value);
+  sending = true;
+
+  online.classList.add('hide');
+  join.classList.add('hide');
+  play.textContent = 'Waiting for host';
 }
 
 window.onresize = (e) => {
@@ -133,7 +151,7 @@ window.onmousemove = (e) => {
   mouseX = e.clientX;
   mouseY = e.clientY;
 
-  if (playingOnline && playing) {
+  if (sending && playing) {
     socket.emit('coords', ({mouseX, mouseY}));
   }
 };
