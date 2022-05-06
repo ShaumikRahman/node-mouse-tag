@@ -166,18 +166,13 @@ canvas.onclick = (e) => {
 
   if (playing) {
 
-
-  for (let i = 0; i < texts.length; i++) {
-    texts[i].classList.remove("hide");
-  }
+    showText();
 
     playing = false;
     endGame();
   } else {
 
-  for (let i = 0; i < texts.length; i++) {
-    texts[i].classList.add("hide");
-  }
+  hideText();
 
     playing = true;
     startGame();
@@ -185,3 +180,15 @@ canvas.onclick = (e) => {
 
   
 };
+
+function showText() {
+  for (let i = 0; i < texts.length; i++) {
+    texts[i].classList.remove("hide");
+  }
+}
+
+function hideText() {
+  for (let i = 0; i < texts.length; i++) {
+    texts[i].classList.add("hide");
+  }
+}
