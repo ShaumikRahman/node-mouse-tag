@@ -11,10 +11,14 @@ join.value = ROOM_ID;
 
 const socket = io();
 
+socket.on("set-host", (id) => {
+  console.log('host here');
+})
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-const size = window.innerWidth >= 1440 ? '30' :'20';
+// const size = window.innerWidth >= 1440 ? '30' :'20';
 
 const xSpeed = window.innerWidth >= 1440 ? 14 : 9;
 const ySpeed = window.innerWidth >= 1440 ? 14 : 9;
