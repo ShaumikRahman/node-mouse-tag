@@ -12,13 +12,23 @@ join.value = ROOM_ID;
 const socket = io();
 
 socket.on("set-host", (id) => {
-  console.log('host here');
+  console.log('test')
+  if (id == ROOM_ID) {
+    hosting = true;
+  }
+})
+
+socket.on('enemy-coords', coords => {
+  if (hosting) {
+    console.log(coords);
+  }
 })
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 // const size = window.innerWidth >= 1440 ? '30' :'20';
+const size = '20';
 
 const xSpeed = window.innerWidth >= 1440 ? 14 : 9;
 const ySpeed = window.innerWidth >= 1440 ? 14 : 9;
@@ -40,6 +50,9 @@ let mouseY;
 
 let xPos = randy(1, window.innerWidth);
 let yPos = randy(1,window.innerHeight);
+
+let onlineXPos;
+let onlineYPos;
 
 function randy(min, max) {
 min = Math.ceil(min);
@@ -85,7 +98,7 @@ function draw() {
   if (playing) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.globalAlpha = 1;
-    hosting ? drawCircle(xPos, yPos, 'enemy') : drawCircle(xPos, yPos, 'enemy');
+    hosting ? drawCircle(onlineXPos, onlineYPos, 'enemy') : drawCircle(xPos, yPos, 'enemy');
     drawCircle(mouseX, mouseY);
 
     collisionCalc();
@@ -138,7 +151,8 @@ online.onclick = (e) => {
 }
 
 function joinRoom() {
-  socket.emit('join', join.value);
+  console.log(join.value)
+  socket.emit('join-room', join.value);
   sending = true;
 
   online.classList.add('hide');

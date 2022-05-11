@@ -13,14 +13,22 @@ app.use(express.static(path.join(__dirname, "public")));
 io.on('connection', (socket) => {
     console.log('connected', socket.id);
 
-    socket.on("join", (roomId) => {
+    let room;
+
+    socket.on("join-room", (roomId) => {
       console.log(`${socket.id} joining ${roomId}`);
 
+      room = roomId;
+
       socket.join(`${roomId}`);
+
+      io.to(`${roomId}`).emit("set-host", roomId);
     });
 
     socket.on("coords", (coords) => {
       console.log(coords);
+
+      io.to(`${room}`).emit('enemy-coords', coords);
     })
 
 })
