@@ -15,14 +15,19 @@ io.on('connection', (socket) => {
 
     let room;
 
-    socket.on("join-room", (roomId) => {
-      console.log(`${socket.id} joining ${roomId}`);
+    socket.on("initial-room", roomId => {
+      socket.join(`${roomId}`);
+    })
+
+    socket.on("join-room", (roomId, leaveId) => {
+      console.log(`${socket.id} joining ${roomId} and leaving ${leaveId}`);
 
       room = roomId;
 
       socket.join(`${roomId}`);
+      socket.leave(`${leaveId}`);
 
-      io.to(`${roomId}`).emit("set-host", roomId);
+      socket.to(`${roomId}`).emit("set-host", roomId);
     });
 
     socket.on("coords", (coords) => {

@@ -11,9 +11,11 @@ join.value = ROOM_ID;
 
 const socket = io();
 
+socket.emit('initial-room', ROOM_ID);
+
 socket.on("set-host", (id) => {
-  console.log('test')
   if (id == ROOM_ID) {
+    console.log(`hosting ${id}`)
     hosting = true;
   }
 })
@@ -100,7 +102,7 @@ function draw() {
     ctx.globalAlpha = 1;
     hosting ? drawCircle(onlineXPos, onlineYPos, 'enemy') : drawCircle(xPos, yPos, 'enemy');
     drawCircle(mouseX, mouseY);
-
+// fix
     collisionCalc();
 
 
@@ -147,12 +149,11 @@ function computerOpponentCalc() {
 }
 
 online.onclick = (e) => {
-  join.value && join.value != ROOM_ID ? joinRoom() : alert(`enter enemy ID`);
+  join.value && join.value != ROOM_ID ? joinRoom(join.value, ROOM_ID) : alert(`enter enemy ID`);
 }
 
-function joinRoom() {
-  console.log(join.value)
-  socket.emit('join-room', join.value);
+function joinRoom(id, currentRoom) {
+  socket.emit('join-room', id, currentRoom);
   sending = true;
 
   online.classList.add('hide');
